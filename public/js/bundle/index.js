@@ -142,9 +142,9 @@
       this[globalName] = mainExports;
     }
   }
-})({"jVISd":[function(require,module,exports) {
+})({"gpDJz":[function(require,module,exports) {
 var global = arguments[3];
-var HMR_HOST = "127.0.0.1";
+var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "42036d7a98ade5a7";
@@ -607,7 +607,6 @@ if (document.querySelector(".form-user-data")) document.querySelector(".form-use
     form.append("name", document.getElementById("name").value);
     form.append("email", document.getElementById("email").value);
     form.append("photo", document.getElementById("photo").files[0]);
-    console.log(form);
     (0, _updateSettings.updateSettings)(form, "data");
 });
 if (document.querySelector(".form-user-settings")) document.querySelector(".form-user-settings").addEventListener("submit", async (e)=>{
@@ -7628,7 +7627,7 @@ const login = async (email, password)=>{
     try {
         const res = await (0, _axiosDefault.default)({
             method: "POST",
-            url: "http://127.0.0.1:3000/api/v1/users/login",
+            url: "/api/v1/users/login",
             data: {
                 email,
                 password
@@ -7648,7 +7647,7 @@ const logout = async ()=>{
     try {
         const res = await (0, _axiosDefault.default)({
             method: "GET",
-            url: "http://127.0.0.1:3000/api/v1/users/logout"
+            url: "/api/v1/users/logout"
         });
         if (res.data.status === "success") location.assign("/");
     } catch (err) {
@@ -23262,7 +23261,7 @@ var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alerts = require("./alerts");
 const updateSettings = async (data, type)=>{
     try {
-        const url = type === "password" ? "http://127.0.0.1:3000/api/v1/users/updateMyPassword" : "http://127.0.0.1:3000/api/v1/users/updateMe";
+        const url = type === "password" ? "/api/v1/users/updateMyPassword" : "/api/v1/users/updateMe";
         const res = await (0, _axiosDefault.default)({
             method: "PATCH",
             url,
@@ -23382,5 +23381,5 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}]},["jVISd","jrZjr"], "jrZjr", "parcelRequire11c7")
+},{}]},["gpDJz","jrZjr"], "jrZjr", "parcelRequire11c7")
 

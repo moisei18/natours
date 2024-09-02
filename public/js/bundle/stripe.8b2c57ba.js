@@ -142,9 +142,9 @@
       this[globalName] = mainExports;
     }
   }
-})({"fot6D":[function(require,module,exports) {
+})({"7S7wU":[function(require,module,exports) {
 var global = arguments[3];
-var HMR_HOST = "127.0.0.1";
+var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "42036d7a98ade5a7";
@@ -594,8 +594,8 @@ const stripe = Stripe("pk_test_51PsloOFPJLVd8SjBCRQdFi0grMIwxU9alzIZwmYpJwXcefcG
 const bookTour = async (tourId)=>{
     try {
         // 1) Get checkout session from API
-        const session = await (0, _axiosDefault.default)(`http://127.0.0.1:3000/api/v1/bookings/checkout-session/${tourId}`);
-        console.log(session);
+        const session = await (0, _axiosDefault.default)(`/api/v1/bookings/checkout-session/${tourId}`);
+        // console.log(session);
         // 2) Create checkout form + charge credit card
         await stripe.redirectToCheckout({
             sessionId: session.data.session.id
@@ -606,5 +606,5 @@ const bookTour = async (tourId)=>{
     }
 };
 
-},{"axios":"gIwns","./alerts":"HLSD7","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}]},["fot6D"], null, "parcelRequire11c7")
+},{"axios":"gIwns","./alerts":"HLSD7","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}]},["7S7wU"], null, "parcelRequire11c7")
 
