@@ -589,7 +589,7 @@ var _login = require("./login");
 var _map = require("./map");
 var _updateSettings = require("./updateSettings");
 // Устанавливаем WebSocket соединение
-const socket = new WebSocket("ws://localhost:3001");
+// const socket = new WebSocket('ws://localhost:3001');
 if (document.getElementById("map")) {
     const locations = JSON.parse(document.getElementById("map").dataset.locations);
     (0, _map.displayMap)(locations);
