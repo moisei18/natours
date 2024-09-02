@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -28,6 +29,17 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
+// Implement CORS
+app.use(cors());
+// Access-Control-Allow-Origin *
+// api.natours.com, front-end natours.com
+// app.use(cors({
+//   origin: 'https://www.natours.com'
+// }))
+
+app.options('*', cors());
+// app.options('/api/v1/tours/:id', cors());
+
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(`${__dirname}/public`));
@@ -35,24 +47,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set security HTTP headers
 app.use(helmet());
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'", 'https://js.stripe.com/'],
-      connectSrc: ["'self'", 'https://127.0.0.1:3000', 'ws://localhost:3001/'],
-      imgSrc: [
-        "'self'",
-        'data:',
-        'https://tile.openstreetmap.org',
-        'https://*.leafletjs.com',
-        'https://unpkg.com',
-      ],
-      scriptSrc: ["'self'", 'https://unpkg.com', 'https://cdnjs.cloudflare.com', 'https://js.stripe.com/'],
-      styleSrc: ["'self'", 'https://unpkg.com', 'https://fonts.googleapis.com'],
-      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-    },
-  }),
-);
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       defaultSrc: ["'self'", 'https://js.stripe.com/'],
+//       connectSrc: ["'self'", 'https://127.0.0.1:3000', 'ws://localhost:3001/'],
+//       imgSrc: [
+//         "'self'",
+//         'data:',
+//         'https://tile.openstreetmap.org',
+//         'https://*.leafletjs.com',
+//         'https://unpkg.com',
+//       ],
+//       scriptSrc: ["'self'", 'https://unpkg.com', 'https://cdnjs.cloudflare.com', 'https://js.stripe.com/'],
+//       styleSrc: ["'self'", 'https://unpkg.com', 'https://fonts.googleapis.com'],
+//       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+//     },
+//   }),
+// );
 
 // Development logging
 // if (process.env.NODE_ENV === 'development') {
