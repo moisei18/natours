@@ -1,5 +1,5 @@
 const http = require('http');
-const WebSocket = require('ws');
+// const WebSocket = require('ws');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
@@ -27,18 +27,18 @@ mongoose
 const server = http.createServer(app);
 
 // Create WebSocket server and connect it with our HTTP server
-const wss = new WebSocket.Server({ server });
+// const wss = new WebSocket.Server({ server });
 
-wss.on('connection', (ws) => {
-  // console.log('WebSocket connection established');
-  ws.on('message', (message) => {
-    // console.log(`Received message: ${message}`);
-    ws.send(`Server received: ${message}`);
-  });
-  ws.on('close', () => {
-    // console.log('WebSocket connection closed');
-  });
-});
+// wss.on('connection', (ws) => {
+//   // console.log('WebSocket connection established');
+//   ws.on('message', (message) => {
+//     // console.log(`Received message: ${message}`);
+//     ws.send(`Server received: ${message}`);
+//   });
+//   ws.on('close', () => {
+//     // console.log('WebSocket connection closed');
+//   });
+// });
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {

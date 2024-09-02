@@ -5,7 +5,7 @@ import { displayMap } from './map';
 import { updateSettings } from './updateSettings';
 
 // Устанавливаем WebSocket соединение
-const socket = new WebSocket('ws://localhost:3001');
+// const socket = new WebSocket('ws://localhost:3001');
 
 if (document.getElementById('map')) {
   const locations = JSON.parse(document.getElementById('map').dataset.locations);
