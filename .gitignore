@@ -1,3 +1,7 @@
 node_modules/
 *.env
 .parcel-cache/
+/server-v1.js
+/js/index-v1.js
+/app-v1.js
+/app-v2.js
