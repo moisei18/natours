@@ -47,24 +47,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set security HTTP headers
 app.use(helmet());
 
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: ["'self'", 'https://js.stripe.com/'],
-//       connectSrc: ["'self'", 'https://127.0.0.1:3000', 'ws://localhost:3001/'],
-//       imgSrc: [
-//         "'self'",
-//         'data:',
-//         'https://tile.openstreetmap.org',
-//         'https://*.leafletjs.com',
-//         'https://unpkg.com',
-//       ],
-//       scriptSrc: ["'self'", 'https://unpkg.com', 'https://cdnjs.cloudflare.com', 'https://js.stripe.com/'],
-//       styleSrc: ["'self'", 'https://unpkg.com', 'https://fonts.googleapis.com'],
-//       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-//     },
-//   }),
-// );
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'", 'https://js.stripe.com/'],
+      connectSrc: ["'self'", 'https://127.0.0.1:3000', 'ws://localhost:3001/'],
+      imgSrc: [
+        "'self'",
+        'data:',
+        'https://tile.openstreetmap.org',
+        'https://*.leafletjs.com',
+        'https://unpkg.com',
+      ],
+      scriptSrc: ["'self'", 'https://unpkg.com', 'https://cdnjs.cloudflare.com', 'https://js.stripe.com/'],
+      styleSrc: ["'self'", 'https://unpkg.com', 'https://fonts.googleapis.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+    },
+  }),
+);
 
 // Development logging
 // if (process.env.NODE_ENV === 'development') {
