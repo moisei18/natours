@@ -20,6 +20,8 @@ const viewRouter = require('./routes/viewRoutes');
 // Start express app
 const app = express();
 
+app.enable('trust proxy');
+
 app.use('/leaflet', express.static(path.join(__dirname, 'node_modules', 'leaflet', 'dist')));
 
 app.set('view engine', 'pug');
