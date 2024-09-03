@@ -22,7 +22,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
           product_data: {
             name: `${tour.name} Tour`,
             description: tour.summary,
-            images: [`http://127.0.0.1:3000/img/tours/${tour.imageCover}`],
+            images: [`https://successful-cyndia-greencat-d56025c3.koyeb.app/img/tours/${tour.imageCover}`],
           },
           unit_amount: tour.price * 100,
         },
