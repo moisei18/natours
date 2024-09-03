@@ -26,7 +26,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
             description: tour.summary,
             images: [`${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`],
           },
-          unit_amount: tour.price * 100, // Amount in cents
+          unit_amount: tour.price * 100,
         },
         quantity: 1,
       },
@@ -41,6 +41,35 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   });
 });
 
+const createBookingCheckout = async (session) => {
+  const tour = session.client_reference_id;
+  const user = (await User.findOne({ email: session.customer_email })).id;
+  const price = session.amount_total / 100; // Используем amount_total для определения цены
+  await Booking.create({ tour, user, price });
+};
+
+exports.webhookCheckout = (req, res, next) => {
+  const signature = req.headers['stripe-signature'];
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(req.body, signature, process.env.STRIPE_WEBHOOK_SECRET);
+  } catch (err) {
+    return res.status(400).send(`Webhook error: ${err.message}`);
+  }
+
+  if (event.type === 'checkout.session.completed') {
+    createBookingCheckout(event.data.object);
+  }
+
+  res.status(200).json({ received: true });
+};
+
+exports.createBooking = factory.createOne(Booking);
+exports.getBooking = factory.getOne(Booking);
+exports.getAllBookings = factory.getAll(Booking);
+exports.updateBooking = factory.updateOne(Booking);
+exports.deleteBooking = factory.deleteOne(Booking);
+
 // exports.createBookingCheckout = catchAsync(async (req, res, next) => {
 //   // This is only TEMPORARY, because it's UNSECURE: everyone can make bookings wothout paying
 //   const { tour, user, price } = req.query;
@@ -50,50 +79,3 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 
 //   res.redirect(req.originalUrl.split('?')[0]);
 // });
-
-const createBookingCheckout = async (sessionId) => {
-  try {
-    // Retrieve the session details from Stripe
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-
-    // Extract details from the session
-    const tour = session.client_reference_id;
-    const user = (await User.findOne({ email: session.customer_email })).id;
-
-    // Get the price from the session's line items
-    const price = session.line_items[0].price_data.unit_amount / 100; // Convert from cents to dollars
-
-    // Create a booking
-    await Booking.create({ tour, user, price });
-  } catch (err) {
-    console.error('Error creating booking:', err);
-    throw err; // Re-throw to handle in webhookCheckout
-  }
-};
-
-exports.webhookCheckout = async (req, res, next) => {
-  const signature = req.headers['stripe-signature'];
-  let event;
-
-  try {
-    event = stripe.webhooks.constructEvent(req.body, signature, process.env.STRIPE_WEBHOOK_SECRET);
-
-    // Handle the event
-    if (event.type === 'checkout.session.completed') {
-      const sessionId = event.data.object.id; // Get session ID
-      await createBookingCheckout(sessionId); // Create booking using the session ID
-    }
-
-    // Respond to Stripe that the event was received
-    res.status(200).json({ received: true });
-  } catch (err) {
-    // Return a 400 error response if webhook verification fails
-    res.status(400).send(`Webhook error: ${err.message}`);
-  }
-};
-
-exports.createBooking = factory.createOne(Booking);
-exports.getBooking = factory.getOne(Booking);
-exports.getAllBookings = factory.getAll(Booking);
-exports.updateBooking = factory.updateOne(Booking);
-exports.deleteBooking = factory.deleteOne(Booking);
