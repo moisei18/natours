@@ -16,6 +16,7 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const bookingController = require('./controllers/bookingController');
 const viewRouter = require('./routes/viewRoutes');
 
 // Start express app
@@ -53,9 +54,8 @@ app.use(
       defaultSrc: ["'self'", 'https://js.stripe.com/'],
       connectSrc: [
         "'self'",
-        'https://127.0.0.1:3000',
-        'wss://successful-cyndia-greencat-d56025c3.koyeb.app/',
         'https://successful-cyndia-greencat-d56025c3.koyeb.app/',
+        'wss://successful-cyndia-greencat-d56025c3.koyeb.app/',
       ],
       imgSrc: [
         "'self'",
@@ -86,7 +86,7 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// console.log('Current NODE_ENV:', process.env.NODE_ENV);
+app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
