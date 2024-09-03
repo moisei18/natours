@@ -4,8 +4,25 @@ import { logout } from './login';
 import { displayMap } from './map';
 import { updateSettings } from './updateSettings';
 
-// Устанавливаем WebSocket соединение
-// const socket = new WebSocket('ws://localhost:3001');
+// Establish WebSocket connection
+const socket = new WebSocket('wss://successful-cyndia-greencat-d56025c3.koyeb.app/');
+// Handle successful connection
+socket.onopen = () => {
+  // Connection established, you can send a message or leave it empty
+};
+// Handle incoming messages from the server
+socket.onmessage = (event) => {
+  // Message received from the server, process or leave it empty
+};
+// Handle connection errors
+socket.onerror = (error) => {
+  // Handle any connection errors
+  console.error(`WebSocket error: ${error.message}`);
+};
+// Handle connection closure
+socket.onclose = () => {
+  // Connection closed, perform any cleanup or actions needed
+};
 
 if (document.getElementById('map')) {
   const locations = JSON.parse(document.getElementById('map').dataset.locations);
