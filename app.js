@@ -54,8 +54,7 @@ app.use(
       connectSrc: [
         "'self'",
         'https://127.0.0.1:3000',
-        'ws://localhost:3001/',
-        'https://successful-cyndia-greencat-d56025c3.koyeb.app/',
+        'wss://successful-cyndia-greencat-d56025c3.koyeb.app/',
       ],
       imgSrc: [
         "'self'",
