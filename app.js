@@ -55,6 +55,7 @@ app.use(
         "'self'",
         'https://127.0.0.1:3000',
         'wss://successful-cyndia-greencat-d56025c3.koyeb.app/',
+        'https://successful-cyndia-greencat-d56025c3.koyeb.app/',
       ],
       imgSrc: [
         "'self'",
