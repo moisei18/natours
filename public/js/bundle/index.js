@@ -650,7 +650,7 @@ if (document.getElementById("book-tour")) document.getElementById("book-tour").a
     bookTour(tourId);
 });
 const alertMessage = document.querySelector("body").dataset.alert;
-if (alert) (0, _alerts.showAlert)("success, alertMessage", 20);
+if (alertMessage) (0, _alerts.showAlert)("success, alertMessage", 20);
 
 },{"@babel/polyfill":"8ooaP","./login":"b0yho","./map":"ixzTh","./updateSettings":"bxABW","./alerts":"HLSD7","e4a729207f19a5e":"1fp42"}],"8ooaP":[function(require,module,exports) {
 "use strict";
