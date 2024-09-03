@@ -3,6 +3,7 @@ import { login } from './login';
 import { logout } from './login';
 import { displayMap } from './map';
 import { updateSettings } from './updateSettings';
+import { showAlert } from './alerts';
 
 // Establish WebSocket connection
 const socket = new WebSocket('wss://successful-cyndia-greencat-d56025c3.koyeb.app/');
@@ -78,3 +79,6 @@ if (document.getElementById('book-tour')) {
     bookTour(tourId);
   });
 }
+
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alert) showAlert('success, alertMessage', 20);

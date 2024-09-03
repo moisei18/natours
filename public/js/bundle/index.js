@@ -588,6 +588,7 @@ var _polyfill = require("@babel/polyfill");
 var _login = require("./login");
 var _map = require("./map");
 var _updateSettings = require("./updateSettings");
+var _alerts = require("./alerts");
 // Establish WebSocket connection
 const socket = new WebSocket("wss://successful-cyndia-greencat-d56025c3.koyeb.app/");
 // Handle successful connection
@@ -648,8 +649,10 @@ if (document.getElementById("book-tour")) document.getElementById("book-tour").a
     const { bookTour } = await require("e4a729207f19a5e");
     bookTour(tourId);
 });
+const alertMessage = document.querySelector("body").dataset.alert;
+if (alert) (0, _alerts.showAlert)("success, alertMessage", 20);
 
-},{"@babel/polyfill":"8ooaP","./login":"b0yho","./map":"ixzTh","./updateSettings":"bxABW","e4a729207f19a5e":"1fp42"}],"8ooaP":[function(require,module,exports) {
+},{"@babel/polyfill":"8ooaP","./login":"b0yho","./map":"ixzTh","./updateSettings":"bxABW","./alerts":"HLSD7","e4a729207f19a5e":"1fp42"}],"8ooaP":[function(require,module,exports) {
 "use strict";
 require("f50de0aa433a589b");
 var _global = _interopRequireDefault(require("4142986752a079d4"));
@@ -12632,11 +12635,11 @@ const hideAlert = ()=>{
     const el = document.querySelector(".alert");
     if (el) el.parentElement.removeChild(el);
 };
-const showAlert = (type, msg)=>{
+const showAlert = (type, msg, time = 5)=>{
     hideAlert();
     const markup = `<div class="alert alert--${type}">${msg}</div>"`;
     document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-    window.setTimeout(hideAlert, 5000);
+    window.setTimeout(hideAlert, time * 1000);
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"ixzTh":[function(require,module,exports) {
